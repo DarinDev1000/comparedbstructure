@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "sourceMap": true,
+    "lib": [
+      "es7",
+      "es2016"
+    ]
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}

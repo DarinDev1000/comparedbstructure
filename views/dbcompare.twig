@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>Compare DB Structure</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" media="screen" href="/css.css" />
+  <script src="main.js"></script>
+</head>
+
+<body>
+  <br>
+  Same Tables in DB:
+  <div>
+    <span style="background-color: {{color}}">{{tablesSameResult}}</span>
+    <br>
+    {% if tableSame == true %} --------------YES--------------- {% endif %}
+    {% if tableSame == false %}
+    <ol>
+      <h3>Database 1 Tables</h3>
+      {% for row in result1 %} {% for col in row %}
+      <li>{{col}}</li>
+      {% endfor %} {% endfor %}
+    </ol>
+    <ol>
+      <h3>Database 2 Tables</h3>
+      {% for row in result2 %} {% for col in row %}
+      <li>{{col}}</li>
+      {% endfor %} {% endfor %}
+    </ol>
+    {% endif %}
+  </div>
+  <br>
+
+
+
+
+  <!--
+    <div style="width: 50%">
+      <table>
+        <caption>Some Table Caption</caption>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Text</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in results %}
+            <tr>
+            {% for col in row %}
+              <th>{{col}}</th>
+            {% endfor %}
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  -->
+</body>
+
+</html>
