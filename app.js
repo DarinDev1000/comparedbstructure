@@ -76,6 +76,18 @@ app.use(async function robots(ctx, next) {
 // parse request body into ctx.request.body
 app.use(body());
 
+// body should only ever be JSON so if it is a string then parse it.
+app.use(async (ctx, next) => {
+  try {
+    if (typeof ctx.request.body === 'string') {
+      ctx.request.body = JSON.parse(ctx.request.body);
+    }
+  } catch (e) {
+    // if it is not JSON then we just let it go.
+  }
+  await next();
+});
+
 // sometimes useful to be able to track each request...
 app.use(async function (ctx, next) {
   debug(ctx.method + ' ' + ctx.url);
