@@ -35,11 +35,10 @@
     "child-process-promise": "^2.2.0",
     "debug": "^2.6.9",
     "dotenv": "^4.0.0",
-    "forever": "^0.15.3",
     "htmlparser": "^1.7.7",
     "jsdom": "^9.11.0",
     "jsonwebtoken": "^8.3.0",
-    "koa": "^2.5.3",
+    "koa": "^2.6.1",
     "koa-body": "^2.5.0",
     "koa-bunyan": "^1.0.1",
     "koa-compose": "^3.2.1",
@@ -66,7 +65,6 @@
     "mocha": "^5.2.0",
     "nodemon": "^1.14.11",
     "npm-check": "^5.5.2",
-    "npm-check-updates": "^2.14.0",
     "supertest": "^3.0.0"
   }
 }
