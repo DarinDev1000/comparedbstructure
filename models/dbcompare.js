@@ -68,6 +68,31 @@ class DBCompare {
 
   }
 
+  static async getTableColumns(Databases) {
+    //-----------------------------------------------------
+    // GET COLUMNS OF EACH TABLE
+    //-----------------------------------------------------
+
+    // GET COLUMNS OF COMPARE DB 1
+    if (Databases.db1Tables[index]) {
+      //const databaseName1 = process.env.DB_COMPARE_1_DATABASE;  // already done
+      const tableName1 = Databases.db1Tables[index].TABLE_NAME;
+      var [db1TableColumns] = await global.comparedb1.query(`SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = :tableName1 AND TABLE_SCHEMA=:databaseName1;`,
+                                                {tableName1: tableName1, databaseName1: Databases.databaseName1});
+      //console.log(db1TableColumns);
+    }
+
+    // GET COLUMNS OF COMPARE DB 2
+    if (Databases.db2Tables[index]) {
+      //const databaseName2 = process.env.DB_COMPARE_2_DATABASE;  // already done
+      const tableName2 = Databases.db2Tables[index].TABLE_NAME;
+      var [db2TableColumns] = await global.comparedb2.query(`SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = :tableName2 AND TABLE_SCHEMA=:databaseName2;`,
+                                                {tableName2: tableName2, databaseName2: Databases.databaseName2});
+      //console.log(db2TableColumns);
+    }
+
+  }
+
   static async compareDatabasesStart(ctx) {
     try {
       //-----------------------------------------------------
@@ -83,7 +108,14 @@ class DBCompare {
       Databases.databaseName2 = "databaseName2";
       Databases.db1Tables = ["db1Tables"];
       Databases.db2Tables = ["db2Tables"];
-      
+      Databases.db1 = { "tableList": []};
+      Databases.db2 = { "tableList": []};
+      Databases.allTableSet = new Set([]);
+      Databases.db1.Tables = {};
+      Databases.db2.Tables = {};
+      Databases.db1.Tables.columnList = [];
+      Databases.db2.Tables.columnList = [];
+
       // ANOTHER WAY TO MAKE OBJECTS
       // MAKE Tables OBJECT
       var Tables = {
