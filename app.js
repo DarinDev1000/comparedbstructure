@@ -14,6 +14,7 @@ const koaLogger = require('koa-bunyan'); // logging
 const views = require('koa-views'); // koa template rendering middleware
 const Twig = require('twig'); // twig php html templates
 const twig = Twig.twig;
+const serve = require('koa-static-server');
 //const render = require('koa-views-render');
 
 require('dotenv').config(); // loads environment variables from .env file (if available - eg dev env)
@@ -72,6 +73,9 @@ app.use(async function robots(ctx, next) {
   await next();
   ctx.response.set('X-Robots-Tag', 'noindex, nofollow');
 });
+
+// SERVE STATIC FILES
+app.use(serve({rootDir: 'public', rootPath: '/public'}));
 
 // parse request body into ctx.request.body
 app.use(body());
@@ -275,7 +279,6 @@ app.use(views(__dirname + '/views', { map: {html: 'twig', twig: 'twig' }}));
 
 app.use(require('./routes/routes-root.js'));
 app.use(require('./routes/routes-dbcompare.js'));
-app.use(require('./routes/routes-css.js'));
 //app.use(require('./routes/routes-auth.js'));
 //app.use(require('./routes/routes-util.js'));
 
