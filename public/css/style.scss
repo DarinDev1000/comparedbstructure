@@ -1,0 +1,55 @@
+body {
+  font-family: "Oswald", sans-serif;
+  padding: 25px;
+  margin: 25px;
+  color: #555555;
+  text-align: center;
+}
+
+h1 {
+  text-align: center;
+}
+
+p {
+  font-size: 17px;
+}
+
+div {
+  text-align: center;
+}
+
+a {
+  color: #58d68d;
+  padding: 2%;
+}
+
+mid-pad {
+  padding: 25px;
+  margin: 25px;
+}
+
+
+#jumbo {
+  background-color: #fef5e7;
+}
+
+#colorpicker {
+  color: #f8c471;
+}
+
+/* Change something when selected */
+::selection {
+  background: yellow;
+}
+
+/* Can choose specific types/attributes of things */
+button[type=submit] {
+  color: green;
+}
+
+* {
+  border: 1px solid gray;
+  background-color: rgba(140, 140, 140, 0.2);
+}
+
+/*# sourceMappingURL=style-scss.css.map */
