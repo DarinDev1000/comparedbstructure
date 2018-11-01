@@ -32,36 +32,39 @@ class DBCompare {
   static async getAllTableList(Databases, allTableSet) {
     console.log("Running getAllTableList");
     // Generate tableList1
-    for (let index = 0; index < Databases.db1.tablesObject.length; index++) {
-      try {
-        // console.log(db1Tables[index]);
-        // console.log(db1Tables[index].TABLE_NAME);
-        const tableName = Databases.db1.tablesObject[index].TABLE_NAME
-        Databases.db1.tableList.push(tableName);
-        allTableSet.add(tableName);
-      } catch (error) {
-        console.log("TABLE_NAME error.  Is object undefined?");
+    for (const db of Databases) {
+      for (let index = 0; index < db.tablesObject.length; index++) {
+        try {
+          // console.log(db1Tables[index]);
+          // console.log(db1Tables[index].TABLE_NAME);
+          const tableName = db.tablesObject[index].TABLE_NAME;
+          db.tableList.push(tableName);
+          allTableSet.add(tableName);
+        } catch (error) {
+          console.log(`TABLE_NAME error for ${db.tablesObject[index].TABLE_NAME}.  Is object undefined?`);
+        }
+        // if ( (db1Tables[index] && db1Tables[index].TABLE_NAME) === (db2Tables[index] && db2Tables[index].TABLE_NAME) ) {
+        //   console.log("same");
+        // } else console.log("different");
       }
-      // if ( (db1Tables[index] && db1Tables[index].TABLE_NAME) === (db2Tables[index] && db2Tables[index].TABLE_NAME) ) {
-      //   console.log("same");
-      // } else console.log("different");
     }
 
+
     // Generate tableList2
-    for (let index = 0; index < Databases.db2.tablesObject.length; index++) {
-      try {
-        const tableName = Databases.db2.tablesObject[index].TABLE_NAME
-        Databases.db2.tableList.push(tableName);
-        allTableSet.add(tableName);
-        console.log(tableName);
-        console.log(allTableSet);
-      } catch (error) {
-        console.log("TABLE_NAME error.  Is object undefined?");
-      }
-    }
+    // for (let index = 0; index < Databases.db2.tablesObject.length; index++) {
+    //   try {
+    //     const tableName = Databases.db2.tablesObject[index].TABLE_NAME
+    //     Databases.db2.tableList.push(tableName);
+    //     allTableSet.add(tableName);
+    //     console.log(tableName);
+    //     console.log(allTableSet);
+    //   } catch (error) {
+    //     console.log("TABLE_NAME error.  Is object undefined?");
+    //   }
+    // }
     // SORTING IS NOT NECESSARY. THE DATABASE IF ALPHABETICAL BY DEFAULT.
-    Databases.db1.tableList.sort;
-    Databases.db2.tableList.sort;
+    Databases.db1.tableList.sort();
+    Databases.db2.tableList.sort();
     // allTableSet.sort;
     // console.log(Tables.tableList1);
     // console.log(Tables.tableList2);
@@ -105,7 +108,7 @@ class DBCompare {
 
       // ONE WAY TO MAKE OBJECTS
       // MAKE Databases OBJECT
-      var Databases = new Object();
+      const Databases = {};
       Databases.db1 = {};
       Databases.db2 = {};
       Databases.db1.databaseName = "databaseName1";
@@ -119,7 +122,7 @@ class DBCompare {
       Databases.db1.Tables = {};
       Databases.db2.Tables = {};
 
-      var allTableSet = new Set();
+      const allTableSet = new Set();
 
 
       /* // moved to Databases object
