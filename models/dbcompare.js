@@ -32,7 +32,9 @@ class DBCompare {
   static async getAllTableList(Databases, allTableSet) {
     console.log("Running getAllTableList");
     // Generate tableList1
-    for (const db of Databases) {
+    for (const key in Databases) {
+      const db = Databases[key];
+      console.log("current db key: ", key);
       for (let index = 0; index < db.tablesObject.length; index++) {
         try {
           // console.log(db1Tables[index]);
@@ -99,6 +101,59 @@ class DBCompare {
 
   }
 
+  static async getDatabaseInfo(Databases, ctx) {
+    // GET DATABASE INFO
+    /*
+    const [db1Info] = await global.comparedb1.query(`SELECT database_id,
+    CONVERT(VARCHAR(25), DB.name) AS dbName,
+    CONVERT(VARCHAR(10), DATABASEPROPERTYEX(name, 'status')) AS [Status],
+    state_desc,
+    (SELECT COUNT(1) FROM sys.master_files WHERE DB_NAME(database_id) = DB.name AND type_desc = 'rows') AS DataFiles,
+    (SELECT SUM((size*8)/1024) FROM sys.master_files WHERE DB_NAME(database_id) = DB.name AND type_desc = 'rows') AS [Data MB],
+    (SELECT COUNT(1) FROM sys.master_files WHERE DB_NAME(database_id) = DB.name AND type_desc = 'log') AS LogFiles,
+    (SELECT SUM((size*8)/1024) FROM sys.master_files WHERE DB_NAME(database_id) = DB.name AND type_desc = 'log') AS [Log MB],
+    user_access_desc AS [User access],
+    recovery_model_desc AS [Recovery model],
+    CASE compatibility_level
+    WHEN 60 THEN '60 (SQL Server 6.0)'
+    WHEN 65 THEN '65 (SQL Server 6.5)'
+    WHEN 70 THEN '70 (SQL Server 7.0)'
+    WHEN 80 THEN '80 (SQL Server 2000)'
+    WHEN 90 THEN '90 (SQL Server 2005)'
+    WHEN 100 THEN '100 (SQL Server 2008)'
+    END AS [compatibility level],
+    CONVERT(VARCHAR(20), create_date, 103) + ' ' + CONVERT(VARCHAR(20), create_date, 108) AS [Creation date],
+    -- last backup
+    ISNULL((SELECT TOP 1
+    CASE TYPE WHEN 'D' THEN 'Full' WHEN 'I' THEN 'Differential' WHEN 'L' THEN 'Transaction log' END + ' – ' +
+    LTRIM(ISNULL(STR(ABS(DATEDIFF(DAY, GETDATE(),Backup_finish_date))) + ' days ago', 'NEVER')) + ' – ' +
+    CONVERT(VARCHAR(20), backup_start_date, 103) + ' ' + CONVERT(VARCHAR(20), backup_start_date, 108) + ' – ' +
+    CONVERT(VARCHAR(20), backup_finish_date, 103) + ' ' + CONVERT(VARCHAR(20), backup_finish_date, 108) +
+    ' (' + CAST(DATEDIFF(second, BK.backup_start_date,
+    BK.backup_finish_date) AS VARCHAR(4)) + ' '
+    + 'seconds)'
+    FROM msdb..backupset BK WHERE BK.database_name = DB.name ORDER BY backup_set_id DESC),'-') AS [Last backup],
+    CASE WHEN is_fulltext_enabled = 1 THEN 'Fulltext enabled' ELSE '' END AS [fulltext],
+    CASE WHEN is_auto_close_on = 1 THEN 'autoclose' ELSE '' END AS [autoclose],
+    page_verify_option_desc AS [page verify option],
+    CASE WHEN is_read_only = 1 THEN 'read only' ELSE '' END AS [read only],
+    CASE WHEN is_auto_shrink_on = 1 THEN 'autoshrink' ELSE '' END AS [autoshrink],
+    CASE WHEN is_auto_create_stats_on = 1 THEN 'auto create statistics' ELSE '' END AS [auto create statistics],
+    CASE WHEN is_auto_update_stats_on = 1 THEN 'auto update statistics' ELSE '' END AS [auto update statistics],
+    CASE WHEN is_in_standby = 1 THEN 'standby' ELSE '' END AS [standby],
+    CASE WHEN is_cleanly_shutdown = 1 THEN 'cleanly shutdown' ELSE '' END AS [cleanly shutdown] FROM sys.databases DB
+    ORDER BY dbName, [Last backup] DESC, NAME;`);
+    */
+
+  //  const [db1Info] = await global.comparedb1.query(`select * from sys.databases;`);
+  // const [db1Info] = await global.comparedb1.query(`DESCRIBE anotherTable;`);
+  // const [db1Info] = await global.comparedb1.query(`SHOW CREATE DATABASE comparedb1;`);
+  const [db1Info] = await global.comparedb1.query(`SELECT * FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME=:databaseName;`, {databaseName: Databases.db1.databaseName});
+
+    console.log(db1Info);
+    ctx.body = db1Info;
+  }
+
   static async compareDatabasesStart(ctx) {
     try {
       //-----------------------------------------------------
@@ -157,8 +212,11 @@ class DBCompare {
       if (tablesSame) await ctx.render('dbcompare.twig', {tableSame: true, color: 'green', result1: Databases.db1Tables, result2: Databases.db2Tables, tablesSameResult: "Yes, The databases have the same tables."});
       else await ctx.render('dbcompare.twig', {tableSame: false, color: 'red', result1: Databases.db1Tables, result2: Databases.db2Tables, tablesSameResult: "NO, The databases have different tables."});
 
+      // GET DATABASE INFO
+      await DBCompare.getDatabaseInfo(Databases, ctx);
+
       // VIEW JSON OUTPUT ***** comment out *****
-      ctx.body = Databases;
+      //ctx.body = Databases;
 
       /*
       // ------ USING isEqual library -------
