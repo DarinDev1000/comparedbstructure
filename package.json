@@ -64,7 +64,7 @@
   "devDependencies": {
     "apidoc": "^0.17.5",
     "chai": "^3.5.0",
-    "eslint": "^3.16.1",
+    "eslint": "^3.19.0",
     "mocha": "^5.2.0",
     "nodemon": "^1.14.11",
     "npm-check": "^5.5.2",
