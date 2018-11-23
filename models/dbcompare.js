@@ -81,6 +81,7 @@ class DBCompare {
   }
 
   static async getAllTableList(Databases, allTableSet) {
+    // Probably don't need this
     console.log("Running getAllTableList");
     // Generate tableList1
     for (const key in Databases) {
@@ -130,6 +131,7 @@ class DBCompare {
     console.log("\nCompare Database Info Start");
     // Only list the differences
     const DatabaseDiff = {db1: {}, db2: {}};
+    let DatabaseInfoSame = false;
 
     if (Databases.db1.dbInfo.DEFAULT_CHARACTER_SET_NAME !== Databases.db2.dbInfo.DEFAULT_CHARACTER_SET_NAME) {
       DatabaseDiff.db1.DEFAULT_CHARACTER_SET_NAME = Databases.db1.dbInfo.DEFAULT_CHARACTER_SET_NAME;
@@ -142,14 +144,17 @@ class DBCompare {
     }
 
     if (DBCompare.isEmpty(DatabaseDiff)) {
-      console.log(DatabaseDiff);
+      // console.log(DatabaseDiff);
+      DatabaseInfoSame = true;
       console.log("Database Info is the same");
     } else {
       console.log(DatabaseDiff);
     }
+    const returnArray = [DatabaseInfoSame, DatabaseDiff];
+    return returnArray;
   }
 
-  // TODO:  Compare tables in db2 to see if in db1
+  // Compare Tables and table properties
   static async compareTables(Databases) {
     console.log("\nCompare Tables Start");
     // Only list the differences
@@ -163,18 +168,22 @@ class DBCompare {
                                   "CREATE_OPTIONS",
                                   "TEMPORARY"];
     const TableDiff = {};
-    TableDiff.db_A = {};
-    TableDiff.db_B = {};
+    TableDiff.db1 = {};
+    TableDiff.db2 = {};
+    const sameTableList = [];
+    let lastKey = 0;
 
     // LOOP TABLES IN DB1
     for (const key in Databases.db1.tablesObject) {
       if (Databases.db1.tablesObject.hasOwnProperty(key)) {
         const dbTable_A = Databases.db1.tablesObject[key];
         //console.log(dbTable_A);
+        lastKey = key;
 
         // GET DB1 TABLE NAME
         const tableName = dbTable_A.TABLE_NAME;
         console.log(tableName);
+
 
         // CHECK IF TABLE IN DB2 and assign to dbTable_B
         let tableInBothDB = false;
@@ -185,6 +194,8 @@ class DBCompare {
             if (tableName === element.TABLE_NAME) {
               tableInBothDB = true;
               dbTable_B = element;
+              sameTableList.push(tableName);
+              console.log("sameTableList", sameTableList);
               console.log(`Table (${tableName}) exist in both databases`);
               break;
             }
@@ -195,39 +206,87 @@ class DBCompare {
         console.log(`Starting table properties compare`);
         console.log(`tableInBothDB: ${tableInBothDB}`);
         if (tableInBothDB === true) {
-
+          // Loop through table properties
           for (const property of tablePropertiesToCompare) {
             console.log(`Comparing (${property}) property`);
 
             console.log(dbTable_A[property]);
             console.log(dbTable_B[property]);
+            // Add property to object if they are different
             if (dbTable_A[property] !== dbTable_B[property]) {
               console.log(`(${dbTable_A[property]}) is not the same`);
-              TableDiff.db_A[key] = {};
-              TableDiff.db_B[key] = {};
-              TableDiff.db_A[key][tableName] = {};
-              TableDiff.db_B[key][dbTable_B.TABLE_NAME] = {};
-              TableDiff.db_A[key][tableName][property] = dbTable_A[property];
-              TableDiff.db_B[key][dbTable_B.TABLE_NAME][property] = dbTable_B[property];
-
-              
+              TableDiff.db1[key] = {};
+              TableDiff.db2[key] = {};
+              TableDiff.db1[key].TABLE_NAME = tableName;
+              TableDiff.db2[key].TABLE_NAME = dbTable_B.TABLE_NAME;
+              TableDiff.db1[key].properties = {};
+              TableDiff.db2[key].properties = {};
+              // TableDiff.db1[key][tableName] = {};
+              // TableDiff.db2[key][dbTable_B.TABLE_NAME] = {};
+              TableDiff.db1[key].properties[property] = dbTable_A[property];
+              TableDiff.db2[key].properties[property] = dbTable_B[property];
+              TableDiff.db1[key].columns = {};
+              TableDiff.db2[key].columns = {};
             }
           }
 
           const ColumnDiff = await DBCompare.compareColumns(Databases, tableName);
-          Databases.ColumnDiff = ColumnDiff;
+          // Databases.ColumnDiff = ColumnDiff;
 
 
         } else {  // TABLE IS NOT IN DB2
           console.log(`Table (${tableName} does NOT exist in db2)`);
-          TableDiff.db_A[key] = {};
-          TableDiff.db_B[key] = {};
-          TableDiff.db_A[key][tableName] = {};
-          TableDiff.db_B[key][dbTable_B.TABLE_NAME] = {};
+          TableDiff.db1[key] = {};
+          TableDiff.db2[key] = {};
+          TableDiff.db1[key].TABLE_NAME = tableName;
+          TableDiff.db2[key].TABLE_NAME = "undefined";
+          // TableDiff.db1[key][tableName] = {};
+          // TableDiff.db2[key][dbTable_B.TABLE_NAME] = {};
 
         }
       }
-    }
+    } // end LOOP TABLES IN DB1
+
+
+    // LOOP TABLES IN DB2 - Add extra tables
+    console.log("\nAdd extra tables in db2 to list");
+    console.log("sameTableList", sameTableList);
+    for (const key in Databases.db2.tablesObject) {
+      if (Databases.db2.tablesObject.hasOwnProperty(key)) {
+        const dbTable_B = Databases.db2.tablesObject[key];
+        //console.log(dbTable_B);
+
+        // GET DB2 TABLE NAME
+        const tableName_2 = dbTable_B.TABLE_NAME;
+        console.log("tableName_2", tableName_2);
+
+        // Check if table is in DB1 
+        let tableInBothDB = false;
+        for (const tableAName of sameTableList) {
+          // console.log("tableAName", tableAName);
+          if (tableAName === tableName_2) {
+            tableInBothDB = true;
+            console.log("Table already listed. Go to next");
+            break;
+          }
+        }
+        // If table is only in db2, add to list
+        if (tableInBothDB === false) {
+          console.log("Table is not found. Add to TableDiff object");
+          // TABLE IS NOT IN DB1
+          console.log(`Table (${tableName_2} does NOT exist in db1)`);
+          lastKey++;
+
+          TableDiff.db1[lastKey] = {};
+          TableDiff.db2[lastKey] = {};
+          TableDiff.db1[lastKey].TABLE_NAME = "undefined";
+          TableDiff.db2[lastKey].TABLE_NAME = tableName_2;
+        //   TableDiff.db1[lastKey].undefined = {};
+        //   TableDiff.db2[lastKey][tableName_2] = {};
+        }
+        
+      }
+    } // end LOOP TABLES IN DB2
 
     return TableDiff;
   }
@@ -298,6 +357,8 @@ class DBCompare {
       Databases.db1.Tables = {};
       Databases.db2.Tables = {};
 
+      const DBDiff = {}
+
       const allTableSet = new Set();
 
 
@@ -340,13 +401,14 @@ class DBCompare {
       // Compare Databases  TODO:
       //-----------------------------------------------------
 
-      await DBCompare.compareDatabaseInfo(Databases);
-
+      const returnArrayDatabaseInfoDiff = await DBCompare.compareDatabaseInfo(Databases);
+      DBDiff.DatabaseInfoSame = returnArrayDatabaseInfoDiff[0];
+      DBDiff.DatabaseInfoDiff = returnArrayDatabaseInfoDiff[1];
       //-----------------------------------------------------
       // Compare Tables  TODO:
       //-----------------------------------------------------
 
-      const TableDiff = await DBCompare.compareTables(Databases);
+      DBDiff.TableDiff = await DBCompare.compareTables(Databases);
 
 
 
@@ -356,7 +418,7 @@ class DBCompare {
       delete Databases.db2.connection;
       
       // ctx.body = TableDiff;
-      Databases.TableDiff = TableDiff;
+      Databases.DBDiff = DBDiff;
       ctx.body = Databases;
 
 
