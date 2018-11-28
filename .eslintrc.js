@@ -20,7 +20,7 @@ module.exports = exports = {
     'no-unexpected-multiline': ERROR,
     // All JSDoc comments must be valid
     'valid-jsdoc': [
-      ERROR,
+      OFF,
       {
         requireReturn: false,
         requireReturnDescription: false,
@@ -48,7 +48,7 @@ module.exports = exports = {
     // the dot goes with the property when doing multiline
     'dot-location': [WARN, 'property'],
     'dot-notation': WARN,
-    'no-console': WARN,
+    'no-console': OFF,
     eqeqeq: [ERROR, 'smart'],
     'guard-for-in': WARN,
     'no-alert': ERROR,
@@ -99,7 +99,7 @@ module.exports = exports = {
     'no-void': WARN,
     // Produce warnings when something is commented as TODO or FIXME
     'no-warning-comments': [
-      WARN,
+      OFF,
       {
         terms: ['TODO', 'FIXME'],
         location: 'start'
@@ -165,7 +165,7 @@ module.exports = exports = {
     'array-bracket-spacing': [0, 'always'],
     'block-spacing': [WARN, 'always'],
     'brace-style': [WARN, '1tbs', { allowSingleLine: false }],
-    camelcase: WARN,
+    camelcase: OFF,
     'comma-spacing': [WARN, { before: false, after: true }],
     'comma-style': [WARN, 'last'],
     'computed-property-spacing': [WARN, 'never'],
@@ -190,7 +190,7 @@ module.exports = exports = {
     'no-inline-comments': OFF,
     'no-lonely-if': WARN,
     'no-mixed-spaces-and-tabs': WARN,
-    'no-multiple-empty-lines': WARN,
+    'no-multiple-empty-lines': OFF,
     'no-negated-condition': OFF,
     'no-nested-ternary': WARN,
     'no-new-object': WARN,
@@ -200,15 +200,15 @@ module.exports = exports = {
     'no-trailing-spaces': OFF,
     'no-underscore-dangle': WARN,
     'no-unneeded-ternary': WARN,
-    'object-curly-spacing': [WARN, 'always'],
+    'object-curly-spacing': [OFF, 'always'],
     'one-var': OFF,
     'operator-assignment': [WARN, 'never'],
     'operator-linebreak': [WARN, 'after'],
-    'padded-blocks': [WARN, 'never'],
+    'padded-blocks': [OFF, 'never'],
     'quote-props': [WARN, 'consistent-as-needed'],
     quotes: [OFF, 'single'],
     'require-jsdoc': [
-      WARN,
+      OFF,
       {
         require: {
           FunctionDeclaration: true,
