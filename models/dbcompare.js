@@ -423,7 +423,7 @@ class DBCompare {
       }
     } // LOOP COLUMNS IN table1
 
-    // LOOP TABLES IN DB2 - Add extra tables
+    // LOOP Columns in tabl2 - Add extra columns
     console.log("\nAdd extra columns in table2 to list - START");
     console.log("sameColumnList", sameColumnList);
     for (const key2 in db2TableColumns) {
@@ -462,8 +462,30 @@ class DBCompare {
         }
         
       }
-    } // end LOOP TABLES IN DB2
+    } // end loop columns in table2
     return ColumnDiff;
+  }
+
+  static async compareDatabasesAPI(ctx) {
+    try {
+      const Databases = await DBCompare.compareDatabasesStart(ctx);
+      ctx.body = Databases.DBDiff;
+    } catch (error) {
+      console.log("ERROR: ", error);
+      throw error;
+    }
+  }
+
+  static async compareDatabasesWebpage(ctx) {
+    try {
+      const Databases = await DBCompare.compareDatabasesStart(ctx);
+      const DBDiff = Databases.DBDiff;
+      await ctx.render('dbcompare.twig', {DBDiff: DBDiff});
+      console.log(DBDiff);
+    } catch (error) {
+      console.log("ERROR: ", error);
+      throw error;
+    }
   }
 
 
@@ -557,23 +579,10 @@ class DBCompare {
       
       // ctx.body = TableDiff;
       Databases.DBDiff = DBDiff;
-      ctx.body = Databases;
+      // ctx.body = Databases;
 
-
-      
-
-      
-
-
-
-
-
-
-
-
-
-
-
+      // return DBDiff;
+      return Databases;
 
       /*
       // ------ USING isEqual library -------
