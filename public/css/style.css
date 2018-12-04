@@ -9,7 +9,7 @@ h1 {
   text-align: center; }
 
 p {
-  font-size: 17px; }
+  font-size: 12px; }
 
 div {
   text-align: center; }
@@ -36,9 +36,100 @@ mid-pad {
 button[type=submit] {
   color: green; }
 
-h6 {
+.container {
+  max-width: 1024px; }
+
+h7 {
   border: 1px solid gray;
-  background-color: rgba(140, 140, 140, 0.2); }
+  background-color: rgba(140, 140, 140, 0.1); }
+
+#dbNameLabel {
+  font-weight: 500; }
+
+.dbName {
+  text-align: center;
+  font-style: italic;
+  background-color: #f5f5f5;
+  border: 1px solid #bbbbbb;
+  border-radius: 3px;
+  padding: 12px 4px;
+  box-shadow: #aaa 3px 5px 2px -2px;
+  padding: 10px 0px;
+  margin: 20px 0px; }
+
+#dbInfoLabel {
+  font-weight: 500; }
+
+.dbInfo {
+  text-align: center;
+  background-color: #f5f5f5;
+  border: 1px solid #bbbbbb;
+  border-radius: 3px;
+  padding: 12px 4px;
+  box-shadow: #aaa 3px 5px 2px -2px;
+  padding: 10px 0px;
+  margin: 20px 0px; }
+
+#tableLabel {
+  text-align: center;
+  font-weight: 500;
+  padding-top: 40px; }
+
+.table {
+  text-align: left; }
+
+.tableArea {
+  border: 1px solid #bbbbbb;
+  border-radius: 3px;
+  padding: 12px 4px;
+  box-shadow: #aaa 3px 5px 2px -2px;
+  padding: 0px 0px;
+  margin: 20px 0px; }
+
+.tableName {
+  text-align: left;
+  font-style: italic;
+  font-weight: 500;
+  text-align: center;
+  border: 1px solid #c0c0c0;
+  background-color: #eeeeee;
+  padding: 10px 0px;
+  margin: 0px 0px; }
+
+.tablePropertyArea {
+  padding: 10px 10px; }
+
+.tableProperty {
+  text-align: left;
+  color: #bb3c3c; }
+
+#columnLabel {
+  text-align: left;
+  padding-left: 1em;
+  font-weight: 500; }
+
+.tableColumnArea {
+  margin: 0px 0px; }
+
+.column {
+  text-align: left;
+  border: 0.5px solid #fafafa;
+  padding: 0px 0px;
+  margin: 0px 0px; }
+
+.columnName {
+  text-align: left;
+  font-style: italic; }
+
+.columnProperty {
+  text-align: left;
+  color: #bb3c3c; }
+
+.odd {
+  background-color: #f5f5f5; }
+
+.even {
+  background-color: #fefefe; }
 
 /*# sourceMappingURL=style-scss.css.map */
 

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>Compare DB Structure</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Bootstrap core CSS -->
+  <link href="public/MDB-Free_4.5.13/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Material Design Bootstrap -->
+  <link href="public/MDB-Free_4.5.13/css/mdb.min.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" media="screen" href="public/css/style.css" />
+
+  <script src="main.js"></script>
+</head>
+
+<body class="starter-template">
+  <br>
+  Same Tables in DB:
+  <div class="container">
+    <span style="background-color: {{color}}">{{tablesSameResult}}</span>
+    <br>
+    <div class="row">
+      {% if tableSame == true %} --------------YES--------------- {% endif %}
+      {% if tableSame == false %}
+      <ol class="col-md-6 mid-pad">
+        <h3>Database 1 Tables</h3>
+        {% for row in result1 %} {% for col in row %}
+        <li>{{col}}</li>
+        {% endfor %} {% endfor %}
+      </ol>
+      <ol class="col-md-6 mid-pad">
+        <h3>Database 2 Tables</h3>
+        {% for row in result2 %} {% for col in row %}
+        <li>{{col}}</li>
+        {% endfor %} {% endfor %}
+      </ol>
+      {% endif %}
+    </div>
+  </div>
+  <br>
+
+
+
+
+  <!--
+    <div style="width: 50%">
+      <table>
+        <caption>Some Table Caption</caption>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Text</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in results %}
+            <tr>
+            {% for col in row %}
+              <th>{{col}}</th>
+            {% endfor %}
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  -->
+</body>
+
+</html>

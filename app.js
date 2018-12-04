@@ -15,7 +15,7 @@ const views = require('koa-views'); // koa template rendering middleware
 const Twig = require('twig'); // twig php html templates
 const twig = Twig.twig;
 const serve = require('koa-static-server');
-//const render = require('koa-views-render');
+// const render = require('koa-views-render');
 
 require('dotenv').config(); // loads environment variables from .env file (if available - eg dev env)
 
@@ -66,7 +66,7 @@ app.use(async function responseTime(ctx, next) {
 });
 
 // HTTP compression
-//app.use(compress({}));
+// app.use(compress({}));
 
 // only search-index www subdomain
 app.use(async function robots(ctx, next) {
