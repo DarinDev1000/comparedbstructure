@@ -10,33 +10,119 @@
   <!-- Material Design Bootstrap -->
   <link href="public/MDB-Free_4.5.13/css/mdb.min.css" rel="stylesheet">
   <link rel="stylesheet" type="text/css" media="screen" href="public/css/style.css" />
-
-  <script src="main.js"></script>
 </head>
 
 <body class="starter-template">
-  <br>
-  Same Tables in DB:
+  <h1>Differences Between Databases</h1>
   <div class="container">
-    <span style="background-color: {{color}}">{{tablesSameResult}}</span>
+    <!-- <span style="background-color: {{color}}">{{tablesSameResult}}</span> -->
     <br>
+    <div class="row dbNameArea">
+      <!-- Database Names -->
+      <div class="col-6">
+        <h2 id="dbNameLabel">Database Name:</h2>
+        <h2 class="dbName">{{Databases.db1.databaseName}}</h2>
+      </div>
+      <div class="col-6">
+          <h2 id="dbNameLabel">Database Name:</h2>
+          <h2 class="dbName">{{Databases.db2.databaseName}}</h2>
+      </div>
+    </div>
+
+    <!-- Database Properties/Info -->
     <div class="row">
-      {% if tableSame == true %} --------------YES--------------- {% endif %}
-      {% if tableSame == false %}
-      <ol class="col-md-6 mid-pad">
-        <h3>Database 1 Tables</h3>
-        {% for row in result1 %} {% for col in row %}
-        <li>{{col}}</li>
-        {% endfor %} {% endfor %}
-      </ol>
-      <ol class="col-md-6 mid-pad">
-        <h3>Database 2 Tables</h3>
-        {% for row in result2 %} {% for col in row %}
-        <li>{{col}}</li>
-        {% endfor %} {% endfor %}
-      </ol>
+      {# <h3 class="col-12">Is Database Info the same:</h3> #}
+      {% if DBDiff.DatabaseInfoSame == true %} {# <p class="col-12"> --------------YES--------------- </p> #} {% endif %}
+      {% if DBDiff.DatabaseInfoSame == false %}
+        {% for dbKey, databaseInfo in DBDiff.DatabaseInfoDiff %}
+          <div class="dbInfoArea col-6">
+            <h3 id="dbInfoLabel">Database Info:</h3>
+            {% for dbInfoItem in databaseInfo %}
+              <h4 class="dbInfo">{{dbInfoItem}}</h4>
+            {% endfor %}
+          </div>
+        {% endfor %}
       {% endif %}
     </div>
+
+    <!-- Compare Tables -->
+    
+    <div class="row">
+      {# <h3 class="col-12">Are Tables the same:</h3> #}
+      {% for dbKey, databaseDiff in DBDiff.TableDiff %}
+        <div class="table col-6">
+          <h3 id="tableLabel">Tables:</h3>
+          {% for table in databaseDiff %}
+            <div class="row col-12 tableArea">
+              <!-- Table Name -->
+              <h4 class="col-12 tableName" {% if table.sameTableName == true %} style="color: #3f3f3f;" {% else %} style="color: rgb(187, 60, 60)" {% endif %} > {{table.TABLE_NAME}} </h4>
+              <!-- Table Properties -->
+              {% if table.tableProperties != null %}
+                <div class="col-3"></div>
+                <div class="tablePropertyArea col-9" >
+                  {% set n = 0 %}
+                  {% for key, tableProperty in table.tableProperties %}
+                        <p class="tableProperty {% if n%2 == 0 %} even {% else %} even {% endif %}"> <span style="color: rgb(49, 49, 49)">{{key}}: </span>{{tableProperty}}</p>
+                  {% set n = n + 1 %}
+                  {% endfor %}
+                </div>
+              {% endif %}
+              <!-- Table Columns -->
+              {% if table.columns != null %} 
+                <div class="col-12 tableColumnArea">
+                  <h5 id="columnLabel">Columns:</h5> 
+              {% endif %}
+                {% for columnKey, column in table.columns %}
+                  <div class="row col-12 column {% if columnKey%2 == 0 %} odd {% else %} even {% endif %}">
+                    <div class="col-1"></div>
+                    <!-- Column Name -->
+                    <h5 class="columnName col-11" {% if column.sameColumnName == true %} style="color: #3f3f3f;" {% else %} style="color: rgb(187, 60, 60)" {% endif %} > {{column.COLUMN_NAME}} </h5>
+                    <!-- Column Properties -->
+                    <div class="col-2"></div>
+                    <div class="columnProperty col-10" >
+                      {% for key, columnProperty in column.columnProperties %}
+                            <p> <span style="color: rgb(49, 49, 49)">{{key}}: </span>{{columnProperty}}</p>
+                      {% endfor %}
+                    </div>
+                  </div>
+                {% endfor %}
+              {% if table.columns != null %} 
+                </div>
+              {% endif %}
+            </div>
+          {% endfor %}
+        </div>
+      {% endfor %}
+
+
+      {# <div class="table col-6">
+        {% for table in DBDiff.TableDiff.db2 %}
+          <div class="row">
+            <!-- Table Name -->
+            <h4 class="tableName col-12" {% if table.sameTableName == true %} style="color: green" {% else %} style="color: red" {% endif %} > {{table.TABLE_NAME}} </h4>
+
+            <!-- Table Properties -->
+            {% for key, tableProperty in table.tableProperties %}
+
+                <!-- Table Property Name -->
+                <p class="col-2"></p>
+                <p class="tableProperty col-10"> {{key}} : {{tableProperty}}</p>
+            {% endfor %}
+            
+          </div>
+        {% endfor %}
+        
+      </div> #}
+      
+    </div>
+
+    <div class="row">
+
+    </div>
+    <div class="row">
+
+    </div>
+          
   </div>
   <br>
 
@@ -65,6 +151,7 @@
       </table>
     </div>
   -->
+  <script src="public/js/twig.js"></script>
 </body>
 
 </html>

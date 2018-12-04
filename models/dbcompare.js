@@ -158,6 +158,7 @@ class DBCompare {
   // Compare Tables and table properties
   static async compareTables(Databases) {
     console.log("\nCompare Tables Start");
+    const undefinedDisplayString = "- - - -";
     // Only list the differences
     const tablePropertiesToCompare = [ "TABLE_NAME",
                                   "TABLE_TYPE",
@@ -234,7 +235,7 @@ class DBCompare {
             }
           }
 
-          const ColumnDiff = await DBCompare.compareColumns(Databases, key, tableName);
+          const ColumnDiff = await DBCompare.compareColumns(Databases, key, tableName, undefinedDisplayString);
           // Databases.ColumnDiff = ColumnDiff;
           TableDiff.db1[key].columns = ColumnDiff[0];
           TableDiff.db2[key].columns = ColumnDiff[1];
@@ -245,7 +246,7 @@ class DBCompare {
           TableDiff.db1[key] = {};
           TableDiff.db2[key] = {};
           TableDiff.db1[key].TABLE_NAME = tableName;
-          TableDiff.db2[key].TABLE_NAME = "undefined";
+          TableDiff.db2[key].TABLE_NAME = undefinedDisplayString;
           TableDiff.db1[key].sameTableName = false;
           TableDiff.db2[key].sameTableName = false;
           // TableDiff.db1[key][tableName] = {};
@@ -286,7 +287,7 @@ class DBCompare {
           lastKey++;
           TableDiff.db1[lastKey] = {};
           TableDiff.db2[lastKey] = {};
-          TableDiff.db1[lastKey].TABLE_NAME = "undefined";
+          TableDiff.db1[lastKey].TABLE_NAME = undefinedDisplayString;
           TableDiff.db2[lastKey].TABLE_NAME = tableName_2;
           TableDiff.db1[lastKey].sameTableName = false;
           TableDiff.db2[lastKey].sameTableName = false;
@@ -301,7 +302,7 @@ class DBCompare {
   }
 
 
-  static async compareColumns(Databases, key, tableName) {
+  static async compareColumns(Databases, key, tableName, undefinedDisplayString) {
     console.log("\n\n----Compare Columns Start----");
     // Only list the differences
     const columnPropertiesToCompare = [ "TABLE_NAME",
@@ -415,7 +416,7 @@ class DBCompare {
           ColumnDiff1[columnKey1] = {};
           ColumnDiff2[columnKey1] = {};
           ColumnDiff1[columnKey1].COLUMN_NAME = columnName1;
-          ColumnDiff2[columnKey1].COLUMN_NAME = "undefined";
+          ColumnDiff2[columnKey1].COLUMN_NAME = undefinedDisplayString;
           ColumnDiff1[columnKey1].sameColumnName = false;
           ColumnDiff2[columnKey1].sameColumnName = false;
 
@@ -453,7 +454,7 @@ class DBCompare {
           lastColumnKey++;
           ColumnDiff1[lastColumnKey] = {};
           ColumnDiff2[lastColumnKey] = {};
-          ColumnDiff1[lastColumnKey].COLUMN_NAME = "undefined";
+          ColumnDiff1[lastColumnKey].COLUMN_NAME = undefinedDisplayString;
           ColumnDiff2[lastColumnKey].COLUMN_NAME = columnName_2;
           ColumnDiff1[lastColumnKey].sameColumnName = false;
           ColumnDiff2[lastColumnKey].sameColumnName = false;
@@ -469,7 +470,8 @@ class DBCompare {
   static async compareDatabasesAPI(ctx) {
     try {
       const Databases = await DBCompare.compareDatabasesStart(ctx);
-      ctx.body = Databases.DBDiff;
+      // ctx.body = Databases.DBDiff;
+      ctx.body = Databases;
     } catch (error) {
       console.log("ERROR: ", error);
       throw error;
@@ -480,8 +482,8 @@ class DBCompare {
     try {
       const Databases = await DBCompare.compareDatabasesStart(ctx);
       const DBDiff = Databases.DBDiff;
-      await ctx.render('dbcompare.twig', {DBDiff: DBDiff});
-      console.log(DBDiff);
+      await ctx.render('dbcompare.twig', {Databases: Databases, DBDiff: DBDiff});
+      // console.log(DBDiff);
     } catch (error) {
       console.log("ERROR: ", error);
       throw error;
