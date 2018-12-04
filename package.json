@@ -13,7 +13,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "tsc": "tsc --pretty --lib 'dom','es2015','es2017' --types 'node' models/*.ts routes/*.ts interfaces/*.ts ./*.ts",
     "compile": "npm run tsc && node app.js",
-    "dev-ts": "./node_modules/nodemon/bin/nodemon.js -e ts --exec \"npm run compile\""
+    "dev-ts": "./node_modules/nodemon/bin/nodemon.js -e ts --exec \"npm run compile\"",
+    "dev-scss": "./node_modules/nodemon/bin/nodemon.js -w ./public/css/style.scss --exec \"./convertSass.sh && node app.js\""
   },
   "repository": {
     "type": "git",
