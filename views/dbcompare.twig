@@ -13,19 +13,48 @@
 </head>
 
 <body class="starter-template">
-  <h1>Differences Between Databases</h1>
+  <h1>Compare Database Structure</h1>
+
+  <div class="container">
+    <!-- <span style="background-color: {{color}}">{{tablesSameResult}}</span> -->
+    <button id="hideButton" type="button" class="btn btn-primary" onclick="runShowButton()">Show Input</button>
+    <div id="formArea" class="row formArea">
+      <!-- Database Names -->
+      <div class="col-6">
+        <h2 >Database 1:</h2>
+        <div class="row formRow"><span class="formLabel">URL:  </span><input type="text" id="db1_url" class="formField" placeholder="localhost"></div>
+        <div class="row formRow"><span class="formLabel">Port (optional): </span><input type="text" id="db1_port" class="formField" placeholder="3306"></div>
+        <div class="row formRow"><span class="formLabel">Database Name: </span><input type="text" id="db1_dbName" class="formField" placeholder="database1"></div>
+        <div class="row formRow"><span class="formLabel">User: </span><input type="text" id="db1_username" class="formField" ></div>
+        <div class="row formRow"><span class="formLabel">Password: </span><input type="text" id="db1_password" class="formField" ></div>
+      </div>
+      <div class="col-6">
+          <h2 >Database 2:</h2>
+          <div class="row formRow"><span class="formLabel">URL:  </span><input type="text" id="db2_url" class="formField" placeholder="localhost"></div>
+        <div class="row formRow"><span class="formLabel">Port (optional): </span><input type="text" id="db2_port" class="formField" placeholder="3306"></div>
+        <div class="row formRow"><span class="formLabel">Database Name: </span><input type="text" id="db2_dbName" class="formField" placeholder="database2"></div>
+        <div class="row formRow"><span class="formLabel">User: </span><input type="text" id="db2_username" class="formField" ></div>
+        <div class="row formRow"><span class="formLabel">Password: </span><input type="text" id="db2_password" class="formField" ></div>
+      </div>
+      <div id="submitButtonParent">
+        <button id="submitButton" type="button" class="btn btn-primary" onclick="submitForm()">Submit</button>
+      </div>
+    </div>
+
+
+
   <div class="container">
     <!-- <span style="background-color: {{color}}">{{tablesSameResult}}</span> -->
     <br>
     <div class="row dbNameArea">
       <!-- Database Names -->
       <div class="col-6">
-        <h2 id="dbNameLabel">Database Name:</h2>
-        <h2 class="dbName">{{Databases.db1.databaseName}}</h2>
+        <h2 id="dbNameLabel">Database 1 Name:</h2>
+        <h3 class="dbName">{{Databases.db1.databaseName}}</h3>
       </div>
       <div class="col-6">
-          <h2 id="dbNameLabel">Database Name:</h2>
-          <h2 class="dbName">{{Databases.db2.databaseName}}</h2>
+        <h2 id="dbNameLabel">Database 2 Name:</h2>
+        <h3 class="dbName">{{Databases.db2.databaseName}}</h3>
       </div>
     </div>
 
@@ -36,7 +65,7 @@
       {% if DBDiff.DatabaseInfoSame == false %}
         {% for dbKey, databaseInfo in DBDiff.DatabaseInfoDiff %}
           <div class="dbInfoArea col-6">
-            <h3 id="dbInfoLabel">Database Info:</h3>
+            <h3 id="dbInfoLabel">Database Properties:</h3>
             {% for dbInfoItem in databaseInfo %}
               <h4 class="dbInfo">{{dbInfoItem}}</h4>
             {% endfor %}

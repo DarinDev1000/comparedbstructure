@@ -158,7 +158,7 @@ class DBCompare {
   // Compare Tables and table properties
   static async compareTables(Databases) {
     console.log("\nCompare Tables Start");
-    const undefinedDisplayString = "- - - -";
+    const undefinedDisplayString = "------";
     // Only list the differences
     const tablePropertiesToCompare = [ "TABLE_NAME",
                                   "TABLE_TYPE",
@@ -301,7 +301,6 @@ class DBCompare {
     return TableDiff;
   }
 
-
   static async compareColumns(Databases, key, tableName, undefinedDisplayString) {
     console.log("\n\n----Compare Columns Start----");
     // Only list the differences
@@ -309,15 +308,15 @@ class DBCompare {
                                     "COLUMN_NAME",
                                     "COLUMN_DEFAULT",
                                     "IS_NULLABLE",
-                                    /*
-                                    "DATA_TYPE": "int",
-                                    "CHARACTER_MAXIMUM_LENGTH": null,
-                                    "CHARACTER_OCTET_LENGTH": null,
-                                    "NUMERIC_PRECISION": 10,
-                                    "NUMERIC_SCALE": 0,
-                                    "DATETIME_PRECISION": null,
-                                    "CHARACTER_SET_NAME": null,
-                                    */
+                                    "DATA_TYPE",
+                                    /* // include? 
+                                    "CHARACTER_MAXIMUM_LENGTH",
+                                    "CHARACTER_OCTET_LENGTH",
+                                    "NUMERIC_PRECISION",
+                                    "NUMERIC_SCALE",
+                                    "DATETIME_PRECISION",
+                                    // ----? */
+                                    "CHARACTER_SET_NAME",
                                     "COLLATION_NAME",
                                     "COLUMN_TYPE",
                                     "COLUMN_KEY",
@@ -489,7 +488,6 @@ class DBCompare {
       throw error;
     }
   }
-
 
   static async compareDatabasesStart(ctx) {
     try {

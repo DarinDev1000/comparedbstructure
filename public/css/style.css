@@ -37,11 +37,35 @@ button[type=submit] {
   color: green; }
 
 .container {
-  max-width: 1024px; }
+  max-width: 1200px; }
 
 h7 {
   border: 1px solid gray;
   background-color: rgba(140, 140, 140, 0.1); }
+
+.formArea {
+  border: 2px solid #8a8a8a;
+  display: none; }
+
+.formRow {
+  width: 100%; }
+
+.formLabel {
+  width: 40%;
+  text-align: left;
+  padding-left: 5%; }
+
+.formField {
+  width: 60%; }
+
+#submitButtonParent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%; }
+
+#submitButton {
+  display: inline-block; }
 
 #dbNameLabel {
   font-weight: 500; }
@@ -101,7 +125,7 @@ h7 {
 
 .tableProperty {
   text-align: left;
-  color: #bb3c3c; }
+  color: #ca2323; }
 
 #columnLabel {
   text-align: left;
@@ -123,7 +147,7 @@ h7 {
 
 .columnProperty {
   text-align: left;
-  color: #bb3c3c; }
+  color: #ca2323; }
 
 .odd {
   background-color: #f5f5f5; }
