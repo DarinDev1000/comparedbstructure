@@ -4,11 +4,11 @@ function runShowButton() {
   const currentDisplaySetting = document.getElementById("formArea").style.display;
   if (currentDisplaySetting === "flex") {
     document.getElementById("formArea").style.display = "none";
-    document.getElementById("hideButton").innerHTML = "SHOW INPUT"
+    document.getElementById("hideButton").innerHTML = "Show Setup"
   }
   else {
     document.getElementById("formArea").style.display = "flex";
-    document.getElementById("hideButton").innerHTML = "HIDE INPUT"
+    document.getElementById("hideButton").innerHTML = "Hide Setup"
   }
 
 }
