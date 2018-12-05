@@ -8,7 +8,7 @@
     "test": "test"
   },
   "scripts": {
-    "dev-all": "nodemon -e js,twig,scss --exec \"./convertSass.sh && node app.js\"",
+    "dev-all": "nodemon -e js,twig,scss -w .env --exec \"./convertSass.sh && node app.js\"",
     "dev": "nodemon app.js",
     "devtools": "nodemon --inspect -e js,json,html app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
