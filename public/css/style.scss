@@ -166,12 +166,19 @@ h7 {
   margin: 0px 0px;
 }
 
+#tablePropertiesLabel {
+  text-align: left;
+  padding-left: 0em;
+  font-weight: 500;
+}
+
 .tablePropertyArea {
   padding: 10px 10px;
 }
 
 .tableProperty {
   text-align: left;
+  padding-left: 20px;
   color: $wrongColor;
 }
 

@@ -90,8 +90,9 @@
               <h4 class="col-12 tableName" {% if table.sameTableName == true %} style="color: #3f3f3f;" {% else %} style="color: rgb(187, 60, 60)" {% endif %} > {{table.TABLE_NAME}} </h4>
               <!-- Table Properties -->
               {% if table.tableProperties != null %}
-                <div class="col-3"></div>
-                <div class="tablePropertyArea col-9" >
+                <div class="col-2"></div>
+                <div class="tablePropertyArea col-10">
+                  <h5 id="tablePropertiesLabel">Table Properties:</h5>
                   {% set n = 0 %}
                   {% for key, tableProperty in table.tableProperties %}
                         <p class="tableProperty {% if n%2 == 0 %} even {% else %} even {% endif %}"> <span style="color: rgb(49, 49, 49)">{{key}}: </span>{{tableProperty}}</p>
@@ -157,32 +158,7 @@
           
   </div>
   <br>
-
-
-
-
-  <!--
-    <div style="width: 50%">
-      <table>
-        <caption>Some Table Caption</caption>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Text</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for row in results %}
-            <tr>
-            {% for col in row %}
-              <th>{{col}}</th>
-            {% endfor %}
-            </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
-  -->
+  <p>This program is still in development.</p>
   <script src="public/js/twig.js"></script>
 </body>
 
