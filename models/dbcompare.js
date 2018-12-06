@@ -13,7 +13,7 @@ class DBCompare {
             return false;
     }
     return true;
-}
+  }
 
   static async getDatabaseInfo(Databases) {
     // GET DATABASE INFO

@@ -92,7 +92,7 @@
               {% if table.tableProperties != null %}
                 <div class="col-2"></div>
                 <div class="tablePropertyArea col-10">
-                  <h5 id="tablePropertiesLabel">Table Properties:</h5>
+                  <!-- <h5 id="tablePropertiesLabel">Table Properties:</h5> -->
                   {% set n = 0 %}
                   {% for key, tableProperty in table.tableProperties %}
                         <p class="tableProperty {% if n%2 == 0 %} even {% else %} even {% endif %}"> <span style="color: rgb(49, 49, 49)">{{key}}: </span>{{tableProperty}}</p>
