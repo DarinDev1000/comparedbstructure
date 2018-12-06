@@ -60,7 +60,6 @@
     "node-gyp": "^3.8.0",
     "randomstring": "^1.1.5",
     "twig": "^1.12.0",
-    "typescript": "^3.2.1",
     "underscore": "^1.9.1"
   },
   "devDependencies": {
