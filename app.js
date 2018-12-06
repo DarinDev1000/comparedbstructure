@@ -275,8 +275,6 @@ app.use(koaLogger(logger, {}));
 // SET VIEWS DIRECTORY
 app.use(views(__dirname + '/views', { map: {html: 'twig', twig: 'twig' }}));
 
-
-
 app.use(require('./routes/routes-root.js'));
 app.use(require('./routes/routes-dbcompare.js'));
 //app.use(require('./routes/routes-auth.js'));

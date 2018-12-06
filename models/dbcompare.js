@@ -546,14 +546,14 @@ class DBCompare {
       // GET TABLE COLUMNS
       await DBCompare.getDatabaseColumns(Databases);
 
-      // TRUE/FALSE : ARE THE TABLES THE SAME
+      // TRUE/FALSE : ARE THE TABLES THE SAME TODO: using this?
       const tablesSame = await ObjectCompare.isEqual(Databases.db1.tableList, Databases.db2.tableList1) ? true : false;
       console.log(`Are the tables the same: ${tablesSame}`);
       // console.log({tablesSame});
 
       // OUTPUT THE TABLES TO HTML
-      if (tablesSame) await ctx.render('dbcompare.twig', {tableSame: true, color: 'green', result1: Databases.db1Tables, result2: Databases.db2Tables, tablesSameResult: "Yes, The databases have the same tables."});
-      else await ctx.render('dbcompare.twig', {tableSame: false, color: 'red', result1: Databases.db1Tables, result2: Databases.db2Tables, tablesSameResult: "NO, The databases have different tables."});
+      // if (tablesSame) await ctx.render('dbcompare.twig', {tableSame: true, color: 'green', result1: Databases.db1Tables, result2: Databases.db2Tables, tablesSameResult: "Yes, The databases have the same tables."});
+      // else await ctx.render('dbcompare.twig', {tableSame: false, color: 'red', result1: Databases.db1Tables, result2: Databases.db2Tables, tablesSameResult: "NO, The databases have different tables."});
 
 
 
