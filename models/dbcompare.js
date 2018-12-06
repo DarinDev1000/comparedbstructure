@@ -13,7 +13,7 @@ class DBCompare {
             return false;
     }
     return true;
-}
+  }
 
   static async getDatabaseInfo(Databases) {
     // GET DATABASE INFO
@@ -158,7 +158,7 @@ class DBCompare {
   // Compare Tables and table properties
   static async compareTables(Databases) {
     console.log("\nCompare Tables Start");
-    const undefinedDisplayString = "- - - -";
+    const undefinedDisplayString = "------";
     // Only list the differences
     const tablePropertiesToCompare = [ "TABLE_NAME",
                                   "TABLE_TYPE",
@@ -301,7 +301,6 @@ class DBCompare {
     return TableDiff;
   }
 
-
   static async compareColumns(Databases, key, tableName, undefinedDisplayString) {
     console.log("\n\n----Compare Columns Start----");
     // Only list the differences
@@ -309,15 +308,15 @@ class DBCompare {
                                     "COLUMN_NAME",
                                     "COLUMN_DEFAULT",
                                     "IS_NULLABLE",
-                                    /*
-                                    "DATA_TYPE": "int",
-                                    "CHARACTER_MAXIMUM_LENGTH": null,
-                                    "CHARACTER_OCTET_LENGTH": null,
-                                    "NUMERIC_PRECISION": 10,
-                                    "NUMERIC_SCALE": 0,
-                                    "DATETIME_PRECISION": null,
-                                    "CHARACTER_SET_NAME": null,
-                                    */
+                                    "DATA_TYPE",
+                                    /* // include? 
+                                    "CHARACTER_MAXIMUM_LENGTH",
+                                    "CHARACTER_OCTET_LENGTH",
+                                    "NUMERIC_PRECISION",
+                                    "NUMERIC_SCALE",
+                                    "DATETIME_PRECISION",
+                                    // ----? */
+                                    "CHARACTER_SET_NAME",
                                     "COLLATION_NAME",
                                     "COLUMN_TYPE",
                                     "COLUMN_KEY",
@@ -490,7 +489,6 @@ class DBCompare {
     }
   }
 
-
   static async compareDatabasesStart(ctx) {
     try {
       // -----------------------------------------------------
@@ -548,14 +546,14 @@ class DBCompare {
       // GET TABLE COLUMNS
       await DBCompare.getDatabaseColumns(Databases);
 
-      // TRUE/FALSE : ARE THE TABLES THE SAME
+      // TRUE/FALSE : ARE THE TABLES THE SAME TODO: using this?
       const tablesSame = await ObjectCompare.isEqual(Databases.db1.tableList, Databases.db2.tableList1) ? true : false;
       console.log(`Are the tables the same: ${tablesSame}`);
       // console.log({tablesSame});
 
       // OUTPUT THE TABLES TO HTML
-      if (tablesSame) await ctx.render('dbcompare.twig', {tableSame: true, color: 'green', result1: Databases.db1Tables, result2: Databases.db2Tables, tablesSameResult: "Yes, The databases have the same tables."});
-      else await ctx.render('dbcompare.twig', {tableSame: false, color: 'red', result1: Databases.db1Tables, result2: Databases.db2Tables, tablesSameResult: "NO, The databases have different tables."});
+      // if (tablesSame) await ctx.render('dbcompare.twig', {tableSame: true, color: 'green', result1: Databases.db1Tables, result2: Databases.db2Tables, tablesSameResult: "Yes, The databases have the same tables."});
+      // else await ctx.render('dbcompare.twig', {tableSame: false, color: 'red', result1: Databases.db1Tables, result2: Databases.db2Tables, tablesSameResult: "NO, The databases have different tables."});
 
 
 

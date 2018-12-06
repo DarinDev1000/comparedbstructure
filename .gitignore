@@ -67,3 +67,6 @@ nate_example.js
 
 .vscode
 package-old.json
+
+.sass-cache/
+

@@ -24,18 +24,18 @@ const app = new Koa();
 app.env = process.env.ENVIRONMENT;
 
 // MySQL connection pool (set up on app initialization)
-const config = {
-  host: process.env.DB_HOST,
-  port: process.env.DB_PORT,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_DATABASE,
-  charset: 'utf8mb4',
-};
+// const config = {
+//   host: process.env.DB_HOST,
+//   port: process.env.DB_PORT || 3306,
+//   user: process.env.DB_USER,
+//   password: process.env.DB_PASSWORD,
+//   database: process.env.DB_DATABASE,
+//   charset: 'utf8mb4',
+// };
 // MySQL connection pool (set up on app initialization)
 const configCompareDB1 = {
   host: process.env.DB_COMPARE_1_HOST,
-  port: process.env.DB_COMPARE_1_PORT,
+  port: process.env.DB_COMPARE_1_PORT || 3306,
   user: process.env.DB_COMPARE_1_USER,
   password: process.env.DB_COMPARE_1_PASSWORD,
   database: process.env.DB_COMPARE_1_DATABASE,
@@ -44,14 +44,14 @@ const configCompareDB1 = {
 // MySQL connection pool (set up on app initialization)
 const configCompareDB2 = {
   host: process.env.DB_COMPARE_2_HOST,
-  port: process.env.DB_COMPARE_2_PORT,
+  port: process.env.DB_COMPARE_2_PORT || 3306,
   user: process.env.DB_COMPARE_2_USER,
   password: process.env.DB_COMPARE_2_PASSWORD,
   database: process.env.DB_COMPARE_2_DATABASE,
   charset: 'utf8mb4',
 };
 
-global.connectionPool = mysql.createPool(config); // put in global to pass to sub-apps
+// global.connectionPool = mysql.createPool(config); // put in global to pass to sub-apps
 global.connectionPoolCompareDB1 = mysql.createPool(configCompareDB1); // put in global to pass to sub-apps
 global.connectionPoolCompareDB2 = mysql.createPool(configCompareDB2); // put in global to pass to sub-apps
 
@@ -137,24 +137,24 @@ app.use(async function handleErrors(ctx, next) {
 // app.use(cors());
 
 // set up MySQL connection - App DB
-app.use(async function mysqlConnection(ctx, next) {
-  try {
-    // keep copy of ctx.state.db in global for access from models
-    ctx.state.db = global.db = await global.connectionPool.getConnection();
-    ctx.state.db.connection.config.namedPlaceholders = true;
-    // traditional mode ensures not null is respected for unsupplied fields, ensures valid JavaScript dates, etc
-    await ctx.state.db.query('SET SESSION sql_mode = "TRADITIONAL"');
+// app.use(async function mysqlConnection(ctx, next) {
+//   try {
+//     // keep copy of ctx.state.db in global for access from models
+//     ctx.state.db = global.db = await global.connectionPool.getConnection();
+//     ctx.state.db.connection.config.namedPlaceholders = true;
+//     // traditional mode ensures not null is respected for unsupplied fields, ensures valid JavaScript dates, etc
+//     await ctx.state.db.query('SET SESSION sql_mode = "TRADITIONAL"');
 
-    await next();
+//     await next();
 
-    ctx.state.db.release();
-  } catch (e) {
-    // note if getConnection() fails we have no this.state.db, but if anything downstream throws,
-    // we need to release the connection
-    if (ctx.state.db) ctx.state.db.release();
-    throw e;
-  }
-});
+//     ctx.state.db.release();
+//   } catch (e) {
+//     // note if getConnection() fails we have no this.state.db, but if anything downstream throws,
+//     // we need to release the connection
+//     if (ctx.state.db) ctx.state.db.release();
+//     throw e;
+//   }
+// });
 
 // set up MySQL connection - CompareDB1
 app.use(async function mysqlConnectionCompareDB1(ctx, next) {
@@ -275,8 +275,6 @@ app.use(koaLogger(logger, {}));
 // SET VIEWS DIRECTORY
 app.use(views(__dirname + '/views', { map: {html: 'twig', twig: 'twig' }}));
 
-
-
 app.use(require('./routes/routes-root.js'));
 app.use(require('./routes/routes-dbcompare.js'));
 //app.use(require('./routes/routes-auth.js'));
@@ -322,7 +320,7 @@ app.listen(process.env.PORT || 3000);
 console.info(
   `${process.version} listening on port ${process.env.PORT || 3000} (${
     app.env
-  }/${config.database})`
+  }/${/*config.database*/"database"})`
 );
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
