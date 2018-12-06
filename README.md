@@ -32,31 +32,36 @@ Requirements:
 
 3. Download this project
     * https://github.com/DarinDev1000/comparedbstructure.git
+    * Or run  `git clone git@github.com:DarinDev1000/comparedbstructure.git`
 
 4. Setup a database: MariaDB/MySQL
-    * If you don't have a database, I suggest MariaDB
-    * Mac/Linux check your package manager for MariaDB: "mariadb-server"
-    * Add to package manager: https://downloads.mariadb.org/mariadb/repositories
-    * Direct Download: https://mariadb.org/download/
+    * If you don't have a database, I suggest MariaDB (a fork of MySQL)
+        * Mac/Linux check your package manager for MariaDB: "mariadb-server"
+        * Add to package manager: https://downloads.mariadb.org/mariadb/repositories
+        * Direct Download: https://mariadb.org/download/
 
 5. You may want a database browser to view and edit databases
-    * Or edit the database from the command line
+
+6. Or edit the database from the command line
     * `sudo mysql -p` or `mysql -u root -p`
-    * To add a user, in mysql, run:
-    * `GRANT ALL PRIVILEGES ON *.* TO '<username>'@'localhost' IDENTIFIED BY '<password>';`
+    * Optional (add user)
+        * To add a user, in mysql, run:
+        * `GRANT ALL PRIVILEGES ON *.* TO '<username>'@'localhost' IDENTIFIED BY '<password>';`
 
-6. Create 2 databases in you database server
+7. Create 2 databases in your database server
+    * Add tables and columns to each database
 
-7. In the root directory, rename the "sample.env" file to ".env"
+8. In the root directory, rename the "sample.env" file to ".env"
 
-8. In the ".env" file, fill in the information for database 1 and 2.  Use the username and password you created.
+9. Edit the ".env" file. Fill in the information for database 1 and 2.
+    * Use root and database password or the username and password you created.
 
-9. In the root project directory, run:
+10. In the root project directory, run:
     * `sudo npm install npm@latest -g`
     * `npm install`
 
-10. This should complete the setup. Now run the server.
-    * `npm run dev`
+11. This should complete the setup. Now run the server.
+    * `node app.js`
     * This will start the server on http://localhost:3000
     * The frontend is on http://localhost:3000/dbcompare
     * To change databases, restart the server
