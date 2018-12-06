@@ -1,4 +1,4 @@
-$wrongColor: rgb(187, 60, 60);
+$wrongColor: rgb(202, 35, 35);
 $sameColor: green;
 
 
@@ -52,12 +52,47 @@ button[type=submit] {
 }
 
 .container {
-  max-width: 1024px;
+  max-width: 1200px;
 }
 
 h7 {
   border: 1px solid gray;
   background-color: rgba(140, 140, 140, 0.1);
+}
+
+#hideButton {
+  // display: none; // temporary
+}
+
+.formArea {
+  border: 2px solid #8a8a8a;
+  display: none; // change this to: none
+}
+
+.formRow {
+  width: 100%;
+  
+}
+
+.formLabel {
+  width: 40%;
+  text-align: left;
+  padding-left: 5%;
+}
+
+.formField {
+  width: 60%;
+}
+
+#submitButtonParent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+#submitButton {
+  display: inline-block;
 }
 
 #dbNameLabel {
@@ -131,12 +166,19 @@ h7 {
   margin: 0px 0px;
 }
 
+#tablePropertiesLabel {
+  text-align: left;
+  padding-left: 0em;
+  font-weight: 500;
+}
+
 .tablePropertyArea {
   padding: 10px 10px;
 }
 
 .tableProperty {
   text-align: left;
+  padding-left: 20px;
   color: $wrongColor;
 }
 
@@ -176,9 +218,31 @@ h7 {
 
 .odd {
   background-color: #f5f5f5;
+  // background-color: #e0e7f3;
 }
 
 .even {
   background-color: #fefefe;
+  // background-color: #cbe2f8;
 }
+
+
+// input[type=text], select, textarea{
+//   width: 60%;
+//   padding: 12px;
+//   border: 1px solid #ccc;
+//   border-radius: 4px;
+//   box-sizing: border-box;
+//   resize: vertical;
+// }
+
+// /* Style the label to display next to the inputs */
+// label {
+//   padding: 12px 12px 12px 0;
+//   display: inline-block;
+// }
+
+
+
+
 /*# sourceMappingURL=style-scss.css.map */

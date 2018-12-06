@@ -1,6 +1,6 @@
 {
   "name": "comparedbstructure",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A program to compare the structure of two databases and list the differences.",
   "main": "app.js",
   "directories": {
@@ -8,13 +8,14 @@
     "test": "test"
   },
   "scripts": {
+    "dev-all": "nodemon -e js,twig,scss  --exec \"./convertSass.sh && node app.js\"",
     "dev": "nodemon app.js",
     "devtools": "nodemon --inspect -e js,json,html app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "tsc": "tsc --pretty --lib 'dom','es2015','es2017' --types 'node' models/*.ts routes/*.ts interfaces/*.ts ./*.ts",
     "compile": "npm run tsc && node app.js",
     "dev-ts": "./node_modules/nodemon/bin/nodemon.js -e ts --exec \"npm run compile\"",
-    "dev-scss": "./node_modules/nodemon/bin/nodemon.js -w ./public/css/style.scss --exec \"./convertSass.sh && node app.js\""
+    "dev-scss": "./node_modules/nodemon/bin/nodemon.js -w ./ -w ./public/css/style.scss --exec \"./convertSass.sh && node app.js\""
   },
   "repository": {
     "type": "git",
@@ -39,10 +40,10 @@
     "dotenv": "^4.0.0",
     "htmlparser": "^1.7.7",
     "jsdom": "^9.11.0",
-    "jsonwebtoken": "^8.3.0",
-    "koa": "^2.6.1",
+    "jsonwebtoken": "^8.4.0",
+    "koa": "^2.6.2",
     "koa-body": "^2.5.0",
-    "koa-bunyan": "^1.0.1",
+    "koa-bunyan": "^1.0.2",
     "koa-compose": "^3.2.1",
     "koa-compress": "^2.0.0",
     "koa-lusca": "^2.2.0",
@@ -52,22 +53,21 @@
     "koa-views-render": "0.0.1",
     "koa2-cors": "^2.0.5",
     "markdown-it": "^8.4.0",
-    "mdbootstrap": "^4.5.13",
+    "mdbootstrap": "^4.5.15",
     "moment": "^2.20.1",
-    "mysql2": "^1.5.1",
+    "mysql2": "^1.6.4",
     "mz": "^2.7.0",
     "node-gyp": "^3.8.0",
     "randomstring": "^1.1.5",
     "twig": "^1.12.0",
-    "typescript": "^3.1.3",
     "underscore": "^1.9.1"
   },
   "devDependencies": {
-    "apidoc": "^0.17.5",
+    "apidoc": "^0.17.7",
     "chai": "^3.5.0",
     "eslint": "^3.19.0",
     "mocha": "^5.2.0",
-    "nodemon": "^1.14.11",
+    "nodemon": "^1.18.7",
     "npm-check": "^5.5.2",
     "supertest": "^3.0.0"
   }
