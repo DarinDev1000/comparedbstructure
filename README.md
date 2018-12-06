@@ -32,7 +32,7 @@ Requirements:
 
 3. Download this project
     * https://github.com/DarinDev1000/comparedbstructure.git
-    * Or run  `git clone git@github.com:DarinDev1000/comparedbstructure.git`
+    * Or run  `git clone https://github.com/DarinDev1000/comparedbstructure.git`
 
 4. Setup a database: MariaDB/MySQL
     * If you don't have a database, I suggest MariaDB (a fork of MySQL)
