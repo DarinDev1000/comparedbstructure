@@ -15,7 +15,8 @@
     "tsc": "tsc --pretty --lib 'dom','es2015','es2017' --types 'node' models/*.ts routes/*.ts interfaces/*.ts ./*.ts",
     "compile": "npm run tsc && node app.js",
     "dev-ts": "./node_modules/nodemon/bin/nodemon.js -e ts --exec \"npm run compile\"",
-    "dev-scss": "./node_modules/nodemon/bin/nodemon.js -w ./ -w ./public/css/style.scss --exec \"./convertSass.sh && node app.js\""
+    "dev-scss": "./node_modules/nodemon/bin/nodemon.js -w ./ -w ./public/css/style.scss --exec \"./convertSass.sh && node app.js\"",
+    "commit": "commit-wizard"
   },
   "repository": {
     "type": "git",
@@ -69,6 +70,20 @@
     "mocha": "^5.2.0",
     "nodemon": "^1.18.7",
     "npm-check": "^5.5.2",
+    "pre-git": "^3.17.1",
     "supertest": "^3.0.0"
+  },
+  "release": {
+    "analyzeCommits": "simple-commit-message"
+  },
+  "config": {
+    "pre-git": {
+      "commit-msg": "simple",
+      "pre-commit": ["echo 'test' "],
+      "pre-push": [],
+      "post-commit": [],
+      "post-checkout": [],
+      "post-merge": []
+    }
   }
 }
