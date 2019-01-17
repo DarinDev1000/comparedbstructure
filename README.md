@@ -63,6 +63,7 @@ Requirements:
 
 11. This should complete the setup. Now run the server.
     * In the root project directory, run: `node app.js`
+    * Or run: `npm run dev-all` to auto restart when a file is saved
     * This will start the server on http://localhost:3000
     * The frontend is on http://localhost:3000/dbcompare
     * To change databases, restart the server
