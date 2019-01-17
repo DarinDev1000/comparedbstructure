@@ -80,7 +80,7 @@
     "pre-git": {
       "enabled": "true",
       "commit-msg": "conventional",
-      "pre-commit": ["echo 'test' "],
+      "pre-commit": ["echo 'test'"],
       "pre-push": [],
       "post-commit": [],
       "post-checkout": [],
