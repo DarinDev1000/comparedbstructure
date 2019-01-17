@@ -51,7 +51,8 @@ Requirements:
 7. Create 2 databases in your database server
     * Add tables and columns to each database
 
-8. In the root directory, rename the "sample.env" file to ".env"
+8. In the root project directory, rename the "sample.env" file to ".env"
+    * `cp sample.env .env`
 
 9. Edit the ".env" file. Fill in the information for database 1 and 2.
     * Use root and database password or the username and password you created.
@@ -61,7 +62,8 @@ Requirements:
     * `npm install`
 
 11. This should complete the setup. Now run the server.
-    * `node app.js`
+    * In the root project directory, run: `node app.js`
+    * Or run: `npm run dev-all` to auto restart when a file is saved
     * This will start the server on http://localhost:3000
     * The frontend is on http://localhost:3000/dbcompare
     * To change databases, restart the server

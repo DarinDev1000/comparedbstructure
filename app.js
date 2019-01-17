@@ -1,3 +1,5 @@
+"use strict";
+
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
 /* A program to compare the structure of two databases and list the differences.                  */
 /*                                                                                                */

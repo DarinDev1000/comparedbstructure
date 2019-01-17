@@ -1,3 +1,4 @@
+"use strict";
 
 function runShowButton() {
   console.log("button");
