@@ -11,7 +11,7 @@
     "dev-all": "nodemon -e js,twig,scss  --exec \"./convertSass.sh && node app.js\"",
     "dev": "nodemon app.js",
     "devtools": "nodemon --inspect -e js,json,html app.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha",
     "tsc": "tsc --pretty --lib 'dom','es2015','es2017' --types 'node' models/*.ts routes/*.ts interfaces/*.ts ./*.ts",
     "compile": "npm run tsc && node app.js",
     "dev-ts": "./node_modules/nodemon/bin/nodemon.js -e ts --exec \"npm run compile\"",
@@ -80,7 +80,9 @@
     "pre-git": {
       "enabled": "true",
       "_comment": "commit-msg: simple",
-      "pre-commit": ["echo 'test'"],
+      "pre-commit": [
+        "echo 'test'"
+      ],
       "pre-push": [],
       "post-commit": [],
       "post-checkout": [],
