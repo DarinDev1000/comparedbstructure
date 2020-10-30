@@ -11,6 +11,8 @@ A program to compare the structure of two databases and list the differences.
 
 *This program is still in development.*
 
+![img1](img1.png)
+
 ## How to use
 
 Requirements:
