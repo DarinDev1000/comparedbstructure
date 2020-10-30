@@ -1,3 +1,5 @@
+"use strict";
+
 // const _ = require('underscore');
 const ObjectCompare = require('./ObjectCompare');
 
@@ -25,7 +27,7 @@ class DBCompare {
         //  const [dbInfo] = await db.connection.query(`select * from sys.databases;`);
         // const [dbInfo] = await db.connection.query(`DESCRIBE anotherTable;`);
         // const [dbInfo] = await db.connection.query(`SHOW CREATE DATABASE :databaseName;`, {databaseName: db.databaseName});
-        const [[dbInfo]] = await db.connection.query(`SELECT * FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME=:databaseName;`, { databaseName: db.databaseName });
+        const [[dbInfo]] = await db.connection.query(/*sql*/`SELECT * FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME=:databaseName;`, { databaseName: db.databaseName });
         // console.log(dbInfo);
         db.dbInfo = dbInfo;
 
@@ -44,7 +46,7 @@ class DBCompare {
       const db = Databases[key];
       try {
         // GET TABLES OF COMPARE DB
-        const [dbTables] = await db.connection.query(`SELECT * FROM INFORMATION_SCHEMA.TABLES 
+        const [dbTables] = await db.connection.query(/*sql*/`SELECT * FROM INFORMATION_SCHEMA.TABLES 
                                               WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_SCHEMA=:databaseName;`,
                                               {databaseName: db.databaseName});
         //console.log(dbTables);
@@ -68,7 +70,7 @@ class DBCompare {
         try {
           const tableName = db.tablesObject[index].TABLE_NAME;
           // GET COLUMNS OF COMPARE DB
-          const [dbColumns] = await db.connection.query(`SELECT * FROM INFORMATION_SCHEMA.COLUMNS 
+          const [dbColumns] = await db.connection.query(/*sql*/`SELECT * FROM INFORMATION_SCHEMA.COLUMNS 
                                                 WHERE TABLE_SCHEMA=:databaseName AND TABLE_NAME=:tableName;`,
                                                 { databaseName: db.databaseName, tableName: tableName });
           // console.log(dbColumns);

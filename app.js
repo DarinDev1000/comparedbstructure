@@ -1,3 +1,5 @@
+"use strict";
+
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
 /* A program to compare the structure of two databases and list the differences.                  */
 /*                                                                                                */
@@ -318,9 +320,8 @@ app.use(require('./routes/routes-dbcompare.js'));
 
 app.listen(process.env.PORT || 3000);
 console.info(
-  `${process.version} listening on port ${process.env.PORT || 3000} (${
-    app.env
-  }/${/*config.database*/"database"})`
+  `${process.version} listening on port ${process.env.PORT || 3000} (${app.env}/${/*config.database*/ "database"})
+  http://localhost:${process.env.PORT || 3000}`
 );
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
