@@ -2,6 +2,7 @@
 
 A program to compare the structure of two databases and list the differences.
 
+![img1](img1.png)
 
   * This program compares the structure of 2 different databases.
 
