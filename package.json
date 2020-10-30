@@ -78,11 +78,9 @@
   },
   "config": {
     "pre-git": {
-      "enabled": "true",
+      "enabled": "false",
       "_comment": "commit-msg: simple",
-      "pre-commit": [
-        "echo 'test'"
-      ],
+      "pre-commit": [],
       "pre-push": [],
       "post-commit": [],
       "post-checkout": [],
